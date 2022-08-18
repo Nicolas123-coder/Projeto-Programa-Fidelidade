@@ -1,5 +1,7 @@
 // ignore_for_file: unnecessary_new
 
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 import './about.dart';
@@ -36,15 +38,6 @@ class MyApp extends StatelessWidget {
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key, required this.title}) : super(key: key);
 
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
   final String title;
 
   @override
@@ -70,7 +63,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: ListView(
           children: <Widget>[
             new UserAccountsDrawerHeader(
-              accountName: new Text('Nicolas'), 
+              accountName: new Text('Nicolas de Barros'), 
               accountEmail: new Text('email@test.com'),
               currentAccountPicture: new CircleAvatar(
                 backgroundImage: new NetworkImage('https://gravatar.com/avatar/0aad39801d4bb384f049d5b70b1f6d78?s=400&d=robohash&r=x'),
@@ -101,20 +94,27 @@ class _MyHomePageState extends State<MyHomePage> {
               ],
         ),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
+      body: Column(
+        children: <Widget>[
+          TextFormField(
+            cursorColor: Theme.of(context).cursorColor,
+            initialValue: 'email',
+            maxLength: 30,
+            decoration: const InputDecoration(
+              icon: Icon(Icons.email),
+              labelText: 'E-mail',
+              labelStyle: TextStyle(
+                color: Color.fromRGBO(63, 62, 63, 1),
+              ),
+              helperText: 'Type your e-mail',
+              suffixIcon: Icon(
+                Icons.check_circle,
+              ),
+              enabledBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: Color.fromRGBO(63, 62, 63, 1)),
+              ),
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
-        ),
-      ),
+      )]),
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
         tooltip: 'Increment',

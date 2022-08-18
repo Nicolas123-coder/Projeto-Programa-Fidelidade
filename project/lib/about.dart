@@ -11,7 +11,7 @@ class _AboutPageState extends State<AboutPage> {
     return new Scaffold(
       appBar: new AppBar(
         title: new Text('about'),
-      ),
+      )
     );
   }
 }
