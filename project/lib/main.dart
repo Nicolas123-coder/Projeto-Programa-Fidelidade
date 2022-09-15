@@ -82,7 +82,12 @@ class _MyHomePageState extends State<MyHomePage> {
                     builder: ((BuildContext context) => new AboutPage())
                   ));
                 },
-              )
+              ),
+              new Divider(
+                color: Colors.black,
+                height: 5.0,
+              ),
+              
               ],
         ),
       ),
