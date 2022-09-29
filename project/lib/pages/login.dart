@@ -1,9 +1,12 @@
 // ignore_for_file: avoid_print, prefer_const_constructors
 
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:project/main.dart';
+import 'package:project/pages/cadastro.dart';
 
-import '../about.dart';
+import 'about.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -39,7 +42,7 @@ class _LoginPageState extends State<LoginPage> {
                 minWidth: 200,
                 minHeight: 200,
                 maxWidth: 500,
-                maxHeight: 350
+                maxHeight: 370
               ),
               child: Container(
                 padding: const EdgeInsets.all(48),
@@ -65,7 +68,7 @@ class _LoginPageState extends State<LoginPage> {
                       decoration: const InputDecoration(
                         labelText: 'E-mail',
                         labelStyle: TextStyle(color: Colors.black)
-              )
+                      )
                     ),
 
                     TextFormField(
@@ -115,9 +118,9 @@ class _LoginPageState extends State<LoginPage> {
                             color: Colors.blue
                             ) 
                           ),
-                          onTap: () {
+                          onTap: () async {
                             Navigator.of(context).push(
-                              MaterialPageRoute(builder: (context) => AboutPage())
+                              MaterialPageRoute(builder: (context) => CadastroPage())
                             );
                           },
                         ),

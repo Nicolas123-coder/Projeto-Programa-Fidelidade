@@ -5,7 +5,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 
 import './pages/login.dart';
-import './about.dart';
+import 'pages/about.dart';
 
 void main() {
   runApp(const MyApp());
