@@ -1,13 +1,22 @@
 // ignore_for_file: avoid_print, prefer_const_constructors
 
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:project/main.dart';
 import 'package:project/pages/cadastro.dart';
-
 import 'about.dart';
 
+// class Login {
+//   final String email;
+//   final String senha;
+//   final String tipoUsuario;
+
+//   Login (
+//     this.email,
+//     this.senha,
+//     this.tipoUsuario
+//   );
+// }
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
 
@@ -28,21 +37,37 @@ class SizeConfig{
   }
 }
 
+String email = "";
+
 class _LoginPageState extends State<LoginPage> {
+  @override
+  void initState() {
+    super.initState();
+    email = email;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 238, 239, 241),
       body: SafeArea(
-        child: Padding(
-          padding: EdgeInsets.all(24),
+        child: Column(
+          children: <Widget>[
+            Container(
+              height: 175,
+              width: 350,
+              child:Image.asset('assets/images/logo.jpg')
+              ),
+          Padding(
+          padding: EdgeInsets.all(17),
           child: Center(
+            // Image.asset('assets/images/logo.jpg'),
             child: ConstrainedBox(
               constraints: BoxConstraints(
                 minWidth: 200,
                 minHeight: 200,
                 maxWidth: 500,
-                maxHeight: 370
+                maxHeight: 385
               ),
               child: Container(
                 padding: const EdgeInsets.all(48),
@@ -51,7 +76,6 @@ class _LoginPageState extends State<LoginPage> {
                   borderRadius: BorderRadius.all(Radius.circular(10))
                 ),
                 child: Wrap(
-                  // Image.asset('assets/images/logo.jpg'),
                   runSpacing: 20,
 
                   children: <Widget> [
@@ -68,7 +92,11 @@ class _LoginPageState extends State<LoginPage> {
                       decoration: const InputDecoration(
                         labelText: 'E-mail',
                         labelStyle: TextStyle(color: Colors.black)
-                      )
+                      ),
+                      //ADICIONAR O ON CHANGE !! e colocar no email q ta no state
+                      onChanged: (value) {
+                        email = value;
+                      },
                     ),
 
                     TextFormField(
@@ -132,6 +160,10 @@ class _LoginPageState extends State<LoginPage> {
               ),
           ) 
         )
+          ],
+        )
+        
+        
     ));
   }
 }
