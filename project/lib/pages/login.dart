@@ -50,7 +50,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 238, 239, 241),
-      body: SafeArea(
+      body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
             Container(
@@ -67,7 +67,7 @@ class _LoginPageState extends State<LoginPage> {
                 minWidth: 200,
                 minHeight: 200,
                 maxWidth: 500,
-                maxHeight: 385
+                maxHeight: 420
               ),
               child: Container(
                 padding: const EdgeInsets.all(48),
