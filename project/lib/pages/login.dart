@@ -1,22 +1,13 @@
 // ignore_for_file: avoid_print, prefer_const_constructors
 
+import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:project/main.dart';
 import 'package:project/pages/cadastro.dart';
 import 'about.dart';
+import 'package:http/http.dart' as http;
 
-// class Login {
-//   final String email;
-//   final String senha;
-//   final String tipoUsuario;
-
-//   Login (
-//     this.email,
-//     this.senha,
-//     this.tipoUsuario
-//   );
-// }
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
 
@@ -37,14 +28,45 @@ class SizeConfig{
   }
 }
 
-String email = "";
-
 class _LoginPageState extends State<LoginPage> {
+  loginApi() async {
+    try {
+      var response = await http.post(
+        Uri.parse('http://localhost:3000/login'),
+        body: jsonEncode({
+          "email": email,
+          "senha": senha,
+          "tipoUsuario": "usuario"
+        }),
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        });
+
+      if(response.statusCode == 400) {
+        showDialog(
+          context: context, 
+          builder: (context) => AlertDialog(
+            content: Text("Usuário não autenticado"),
+          ));
+      }
+
+      print(response.statusCode);
+    } catch (error) {
+      AlertDialog(content: Text("error"));
+      print(error);
+    }
+  }
+
   @override
   void initState() {
     super.initState();
-    email = email;
+    // String email;
   }
+
+  String email = '';
+  String senha = '';
+  String tipoUsuario = '';
 
   @override
   Widget build(BuildContext context) {
@@ -66,8 +88,8 @@ class _LoginPageState extends State<LoginPage> {
               constraints: BoxConstraints(
                 minWidth: 200,
                 minHeight: 200,
-                maxWidth: 500,
-                maxHeight: 420
+                maxWidth: 600,
+                maxHeight: 730
               ),
               child: Container(
                 padding: const EdgeInsets.all(48),
@@ -81,7 +103,9 @@ class _LoginPageState extends State<LoginPage> {
                   children: <Widget> [
                     SizedBox(height: 20),
 
-                    Title(color: Color.fromARGB(255, 144, 146, 144), child: Text('Login')),
+                    Title(
+                      color: Color.fromARGB(255, 144, 146, 144), 
+                      child: Text('Login')),
                     
                     TextFormField(
                       autofocus: true,
@@ -95,12 +119,14 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       //ADICIONAR O ON CHANGE !! e colocar no email q ta no state
                       onChanged: (value) {
-                        email = value;
+                        setState(() {
+                          email = value.toString();
+                        });
                       },
                     ),
 
                     TextFormField(
-                       autofocus: true,
+                      autofocus: true,
                       obscureText: true,
                       keyboardType: TextInputType.text,
                       style: const TextStyle(
@@ -108,13 +134,40 @@ class _LoginPageState extends State<LoginPage> {
                         fontSize: 20 ),
                       decoration: const InputDecoration(
                         labelText: 'Senha',
-                        labelStyle: TextStyle(color: Colors.black))
+                        labelStyle: TextStyle(color: Colors.black)),
+                      onChanged: (value) {
+                        setState(() {
+                          senha = value.toString();
+                        });
+                      },
                     ),
+
+                    RadioListTile(
+                      contentPadding: EdgeInsets.all(0.0),
+                      title: Text('Usuário'),
+                      value: 'usuario', 
+                      groupValue: tipoUsuario, 
+                      onChanged: (value) {
+                        setState(() {
+                          tipoUsuario = value.toString();
+                        });
+                    }),
+
+                    RadioListTile(
+                      contentPadding: EdgeInsets.all(0.0),
+                      title: Text('Empresa'),
+                      value: 'estabelecimento', 
+                      groupValue: tipoUsuario, 
+                      onChanged: (value) {
+                        setState(() {
+                          tipoUsuario = value.toString();
+                        });
+                    }),
 
                     SizedBox(
                       width: double.infinity,
                       child: TextButton(
-                        onPressed: () {},
+                        onPressed: () {loginApi();},
                         style: TextButton.styleFrom(
                           primary: Colors.black,
                           padding: const EdgeInsets.symmetric(
