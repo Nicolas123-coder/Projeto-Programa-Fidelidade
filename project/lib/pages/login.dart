@@ -51,6 +51,14 @@ class _LoginPageState extends State<LoginPage> {
           ));
       }
 
+      if(response.statusCode == 200) {
+        showDialog(
+          context: context, 
+          builder: (context) => AlertDialog(
+            content: Text("Usuário autenticado !!"),
+          ));
+      }
+
       print(response.statusCode);
     } catch (error) {
       AlertDialog(content: Text("error"));
