@@ -67,7 +67,7 @@ class _hotelPageState extends State<hotelPage> {
                             ),
                             IconButton(
                               icon: Icon(
-                                Icons.search,
+                                Icons.qr_code_scanner,
                                 color: Colors.black,
                               ),
                               onPressed: () {},
@@ -280,7 +280,11 @@ class _hotelPageState extends State<hotelPage> {
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(30)),
                     border: Border.all(color: black)),
-                child: Text("Editar"),
+                child: Text("Editar",
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w700)),
               )
             ],
           )
@@ -349,11 +353,11 @@ class _hotelPageState extends State<hotelPage> {
             padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.all(Radius.circular(40)),
-                color: greenBtn),
+                border: Border.all(color: Colors.black)),
             child: Text(
-              "Order Now",
+              " Editar ",
               style: TextStyle(
-                  color: Colors.white,
+                  color: Colors.black,
                   fontSize: 12,
                   fontWeight: FontWeight.w700),
             ),
