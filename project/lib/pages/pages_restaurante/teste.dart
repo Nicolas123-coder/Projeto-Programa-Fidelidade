@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:project/pages/login.dart';
 import 'package:project/main.dart';
-import 'dart:ffi';
+import 'package:project/pages/pages_restaurante/cadastro_beneficio.dart';
 
 import 'Style.dart';
 
@@ -35,10 +35,10 @@ class _hotelPageState extends State<hotelPage> {
                   Container(
                     padding: EdgeInsets.all(20),
                     decoration: BoxDecoration(
-                        color: blue,
+                        color: Colors.yellow,
                         image: DecorationImage(
-                            image: AssetImage("asset/images/logo-simple.png"),
-                            fit: BoxFit.cover),
+                            image: AssetImage("assets/images/SantaGula.png"),
+                            fit: BoxFit.fitWidth),
                         borderRadius: BorderRadius.only(
                             bottomLeft: Radius.circular(40),
                             bottomRight: Radius.circular(40))),
@@ -54,7 +54,7 @@ class _hotelPageState extends State<hotelPage> {
                             IconButton(
                               icon: Icon(
                                 Icons.arrow_back,
-                                color: Colors.white,
+                                color: Colors.black,
                               ),
                               onPressed: () {
                                 Navigator.of(context).pop();
@@ -68,7 +68,7 @@ class _hotelPageState extends State<hotelPage> {
                             IconButton(
                               icon: Icon(
                                 Icons.search,
-                                color: Colors.white,
+                                color: Colors.black,
                               ),
                               onPressed: () {},
                             ),
@@ -89,7 +89,7 @@ class _hotelPageState extends State<hotelPage> {
                                 Text(
                                   "Nome Restaurante",
                                   style: TextStyle(
-                                      color: Colors.white,
+                                      color: Colors.black,
                                       fontWeight: FontWeight.w700,
                                       fontSize: 20),
                                 ),
@@ -101,43 +101,50 @@ class _hotelPageState extends State<hotelPage> {
                                   children: [
                                     Icon(
                                       Icons.star,
-                                      color: Colors.white,
+                                      color: Colors.red,
                                     ),
                                     Icon(
                                       Icons.star,
-                                      color: Colors.white,
+                                      color: Colors.red,
                                     ),
                                     Icon(
                                       Icons.star,
-                                      color: Colors.white,
+                                      color: Colors.red,
                                     ),
                                     Icon(
                                       Icons.star,
-                                      color: Colors.white,
+                                      color: Colors.red,
                                     ),
                                     Icon(
                                       Icons.star,
-                                      color: Colors.white,
+                                      color: Colors.red,
                                     ),
                                     Text(
-                                      " 250 Reviews",
+                                      "Reviews",
                                       style: TextStyle(
-                                          color: Colors.white, fontSize: 13),
+                                          color: Colors.black, fontSize: 13),
                                     )
                                   ],
                                 )
                               ],
                             ),
                             Container(
-                              height: 70,
-                              width: 70,
-                              decoration: BoxDecoration(
-                                  shape: BoxShape.circle, color: Colors.white),
+                              // height: 40,
+                              // width: 40,
+                              // decoration: BoxDecoration(
+                              //     shape: BoxShape.circle, color: Colors.white),
                               child: Center(
-                                child: Icon(
-                                  Icons.favorite,
-                                  color: Colors.redAccent,
-                                  size: 35,
+                                child: IconButton(
+                                  icon: const Icon(Icons.add_circle,
+                                      color: Colors.black, size: 50),
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                    Navigator.push(
+                                        context,
+                                        new MaterialPageRoute(
+                                            builder: ((BuildContext context) =>
+                                                new CadastroBeneficioPage())));
+                                  },
                                 ),
                               ),
                             )
@@ -147,8 +154,8 @@ class _hotelPageState extends State<hotelPage> {
                           height: 15,
                         ),
                         Text(
-                          "Lorem ipsum dolar sits amet is used in print industry",
-                          style: TextStyle(color: Colors.white, fontSize: 12),
+                          "Descrição Restaurante",
+                          style: TextStyle(color: Colors.black, fontSize: 12),
                         )
                       ],
                     ),
@@ -164,7 +171,7 @@ class _hotelPageState extends State<hotelPage> {
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
                             Text(
-                              "Today's Special",
+                              "Benefícios Ativos",
                               style: TextStyle(
                                   fontSize: 22, fontWeight: FontWeight.w700),
                             ),
@@ -183,7 +190,7 @@ class _hotelPageState extends State<hotelPage> {
                         SizedBox(
                           height: 20,
                         ),
-                        placesWidget("food1", "Sushi Platter"),
+                        placesWidget("Beneficio 1", "Beneficio Ativo 1"),
                         SizedBox(
                           height: 20,
                         ),
@@ -191,7 +198,7 @@ class _hotelPageState extends State<hotelPage> {
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
                             Text(
-                              "Dishes",
+                              "Benefícios Expirados",
                               style: TextStyle(
                                   fontSize: 22, fontWeight: FontWeight.w700),
                             ),
@@ -214,14 +221,14 @@ class _hotelPageState extends State<hotelPage> {
                           scrollDirection: Axis.horizontal,
                           child: Row(
                             children: [
-                              dishWidget("sushi", "Row Sushi",
-                                  "5 Sushis served in a row"),
-                              dishWidget("suchi2", "Prato Sushi",
-                                  "5 Sushis served in a row"),
-                              dishWidget("sushi3", "Sushi Box",
-                                  "5 Sushis served in a row"),
-                              dishWidget("sushi4", "Row Sushi",
-                                  "5 Sushis served in a row"),
+                              dishWidget(
+                                  "Beneficio 1", "Beneficio 1", "Beneficio 1"),
+                              dishWidget(
+                                  "Beneficio 1", "Beneficio 2", "Beneficio 2"),
+                              dishWidget(
+                                  "Beneficio 1", "Beneficio 3", "Beneficio 3"),
+                              dishWidget(
+                                  "Beneficio 1", "Beneficio 4", "Beneficio 4"),
                             ],
                           ),
                         )
@@ -247,7 +254,7 @@ class _hotelPageState extends State<hotelPage> {
             height: 100,
             decoration: BoxDecoration(
                 image: DecorationImage(
-                    image: AssetImage("asset/images/$img.png"))),
+                    image: AssetImage('assets/images/$img.png'))),
           ),
           Column(
             mainAxisAlignment: MainAxisAlignment.end,
@@ -273,7 +280,7 @@ class _hotelPageState extends State<hotelPage> {
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(30)),
                     border: Border.all(color: black)),
-                child: Text("+ Cart"),
+                child: Text("Editar"),
               )
             ],
           )
@@ -290,7 +297,7 @@ class _hotelPageState extends State<hotelPage> {
           width: 100,
           decoration: BoxDecoration(
               image:
-                  DecorationImage(image: AssetImage("asset/images/$img.png"))),
+                  DecorationImage(image: AssetImage("assets/images/$img.png"))),
         ),
         Expanded(
           child: Column(
@@ -330,7 +337,7 @@ class _hotelPageState extends State<hotelPage> {
                 ],
               ),
               Text(
-                "Lorem ipsum sits dolar amet is for publishing",
+                "Beneficio Ativo 1",
                 style: TextStyle(fontSize: 12),
               )
             ],

@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'cadastro_beneficio.dart';
 
 class Home_Restaurante extends StatefulWidget {
   @override
