@@ -1,10 +1,8 @@
-// ignore_for_file: unnecessary_new
+// ignore_for_file: prefer_const_constructors, unnecessary_new
 
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:project/pages/pages_restaurante/teste.dart';
-
 import 'pages/pages_restaurante/home_restaurante.dart';
 import './pages/login.dart';
 import 'pages/about.dart';

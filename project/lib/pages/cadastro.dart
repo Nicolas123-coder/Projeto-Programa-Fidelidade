@@ -1,5 +1,10 @@
+// ignore_for_file: prefer_const_constructors, unnecessary_new
+
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
+import 'package:http/http.dart' as http;
+import 'package:project/pages/login.dart';
 
 class CadastroPage extends StatefulWidget {
   @override
@@ -7,6 +12,29 @@ class CadastroPage extends StatefulWidget {
 }
 
 class _CadastroPageState extends State<CadastroPage> {
+  cadastroApi() async {
+    try {
+      var response = await http.post(
+        Uri.parse('http://localhost:3000/usuario/create'),
+        body: jsonEncode({
+          "usuario": {
+            "email": email,
+            "nome": nome,
+            "senha": senha,
+            "telefone": telefone
+          }
+        }),
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        });
+
+      print(response); 
+    } catch (error) {
+      print(error);
+    }  
+  }
+
   String? identifier;
   bool isEmpresa = false;
   bool isUsuario = false;
@@ -16,10 +44,15 @@ class _CadastroPageState extends State<CadastroPage> {
   final cnpjFormatter = MaskTextInputFormatter(mask: '##.###.###/####-##');
   final birthdateFormatter = MaskTextInputFormatter(mask: '##/##/####');
 
+  String email = '';
+  String senha = '';
+  String nome = '';
+  String telefone = '';
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      appBar: new AppBar(
+      appBar: AppBar(
         title: new Text('Cadastro'),
       ),
       body: SingleChildScrollView(
@@ -39,14 +72,26 @@ class _CadastroPageState extends State<CadastroPage> {
                       decoration: const InputDecoration(
                         labelText: 'E-mail',
                         labelStyle: TextStyle(color: Colors.black),
-                      )),
+                      ),
+                      onChanged: (value) => {
+                        setState(() => {
+                          email = value.toString()
+                        })
+                      }
+                      ),
                   TextFormField(
                       autofocus: true,
                       keyboardType: TextInputType.name,
                       style: const TextStyle(color: Colors.black, fontSize: 20),
                       decoration: const InputDecoration(
                           labelText: 'Nome Completo',
-                          labelStyle: TextStyle(color: Colors.black))),
+                          labelStyle: TextStyle(color: Colors.black)),
+                      onChanged: (value) => {
+                        setState(() => {
+                          nome = value.toString()
+                        })
+                      },    
+                      ),
                   TextFormField(
                       autofocus: true,
                       obscureText: true,
@@ -56,7 +101,13 @@ class _CadastroPageState extends State<CadastroPage> {
                       style: const TextStyle(color: Colors.black, fontSize: 20),
                       decoration: const InputDecoration(
                           labelText: 'Senha',
-                          labelStyle: TextStyle(color: Colors.black))),
+                          labelStyle: TextStyle(color: Colors.black)),
+                      onChanged: (value) => {
+                        setState(() => {
+                          senha = value.toString()
+                        })
+                      },       
+                  ),
                   Row(
                     children: [
                       Expanded(
@@ -192,6 +243,11 @@ class _CadastroPageState extends State<CadastroPage> {
                               labelStyle: TextStyle(color: Colors.black),
                             ),
                             inputFormatters: [phoneFormatter],
+                            onChanged: (value) {
+                              setState(() => {
+                                telefone = value.toString()
+                              });
+                            },
                           ),
                           TextFormField(
                             autofocus: true,
@@ -207,7 +263,15 @@ class _CadastroPageState extends State<CadastroPage> {
                           SizedBox(
                             width: double.infinity,
                             child: TextButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                cadastroApi();
+
+                                Navigator.of(context).pop();
+                                Navigator.push(
+                                  context,
+                                  new MaterialPageRoute(
+                                    builder: ((BuildContext context) => new LoginPage())));
+                              },
                               style: TextButton.styleFrom(
                                   primary: Colors.black,
                                   padding: const EdgeInsets.symmetric(

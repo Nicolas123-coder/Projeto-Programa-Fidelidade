@@ -36,12 +36,13 @@ class _LoginPageState extends State<LoginPage> {
         body: jsonEncode({
           "email": email,
           "senha": senha,
-          "tipoUsuario": "usuario"
+          "tipoUsuario": tipoUsuario
         }),
         headers: {
           "Content-Type": "application/json",
           "Accept": "application/json"
-        });
+        }
+      );
 
       if(response.statusCode == 400) {
         showDialog(
@@ -157,7 +158,7 @@ class _LoginPageState extends State<LoginPage> {
                       groupValue: tipoUsuario, 
                       onChanged: (value) {
                         setState(() {
-                          tipoUsuario = value.toString();
+                          tipoUsuario = 'usuario';
                         });
                     }),
 
@@ -168,7 +169,7 @@ class _LoginPageState extends State<LoginPage> {
                       groupValue: tipoUsuario, 
                       onChanged: (value) {
                         setState(() {
-                          tipoUsuario = value.toString();
+                          tipoUsuario = 'estabelecimento';
                         });
                     }),
 
