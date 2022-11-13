@@ -12,7 +12,7 @@ class CadastroPage extends StatefulWidget {
 }
 
 class _CadastroPageState extends State<CadastroPage> {
-  cadastroApi() async {
+  cadastroUsuarioApi() async {
     try {
       var response = await http.post(
         Uri.parse('http://localhost:3000/usuario/create'),
@@ -29,7 +29,34 @@ class _CadastroPageState extends State<CadastroPage> {
           "Accept": "application/json"
         });
 
-      print(response); 
+      print(response.statusCode); 
+    } catch (error) {
+      print(error);
+    }  
+  }
+
+  cadastroEstabelecimentoApi() async {
+    try {
+      var response = await http.post(
+        Uri.parse('http://localhost:3000/estabelecimento/create'),
+        body: jsonEncode({
+          "estabelecimento": {
+            "email": email,
+		        "nome": nome,
+		        "senha": senha,
+		        "cnpj": cnpj,
+            "nomeEstabelecimento": nomeEstabelecimento,
+            "tipoEstabelecimento": tipoComercio,
+            "enderecoEstabelecimento": endereco,
+            "telefone": telefoneEstabelecimento
+          }
+        }),
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        });
+
+      print(response.statusCode); 
     } catch (error) {
       print(error);
     }  
@@ -48,6 +75,12 @@ class _CadastroPageState extends State<CadastroPage> {
   String senha = '';
   String nome = '';
   String telefone = '';
+
+  String cnpj = '';
+  String nomeEstabelecimento = '';
+  String telefoneEstabelecimento = '';
+  String tipoComercio = '';
+  String endereco = '';
 
   @override
   Widget build(BuildContext context) {
@@ -160,6 +193,11 @@ class _CadastroPageState extends State<CadastroPage> {
                               labelStyle: TextStyle(color: Colors.black),
                             ),
                             inputFormatters: [cnpjFormatter],
+                            onChanged: (value) => {
+                              setState(() => {
+                                cnpj = value.toString()
+                              })
+                            }
                           ),
                           TextFormField(
                               autofocus: true,
@@ -169,7 +207,13 @@ class _CadastroPageState extends State<CadastroPage> {
                               decoration: const InputDecoration(
                                 labelText: 'Nome do Estabelecimento',
                                 labelStyle: TextStyle(color: Colors.black),
-                              )),
+                              ),
+                              onChanged: (value) => {
+                                setState(() => {
+                                  nomeEstabelecimento = value.toString()
+                                })
+                              }
+                          ),
                           TextFormField(
                             autofocus: true,
                             keyboardType: TextInputType.phone,
@@ -180,6 +224,11 @@ class _CadastroPageState extends State<CadastroPage> {
                               labelStyle: TextStyle(color: Colors.black),
                             ),
                             inputFormatters: [phoneFormatter],
+                            onChanged: (value) => {
+                                setState(() => {
+                                  telefoneEstabelecimento = value.toString()
+                                })
+                              }
                           ),
                           TextFormField(
                               autofocus: true,
@@ -189,7 +238,13 @@ class _CadastroPageState extends State<CadastroPage> {
                               decoration: const InputDecoration(
                                 labelText: 'Tipo de Comercio',
                                 labelStyle: TextStyle(color: Colors.black),
-                              )),
+                              ),
+                              onChanged: (value) => {
+                                setState(() => {
+                                  tipoComercio = value.toString()
+                                })
+                              }
+                          ),
                           TextFormField(
                               autofocus: true,
                               keyboardType: TextInputType.streetAddress,
@@ -198,11 +253,28 @@ class _CadastroPageState extends State<CadastroPage> {
                               decoration: const InputDecoration(
                                 labelText: 'Endereco Restaurante',
                                 labelStyle: TextStyle(color: Colors.black),
-                              )),
+                              ),
+                              onChanged: (value) => {
+                                setState(() => {
+                                  endereco = value.toString()
+                                })
+                              }
+                          ),
                           SizedBox(
                               width: double.infinity,
                               child: TextButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  cadastroEstabelecimentoApi();
+
+                                  Navigator.of(context).pop();
+
+                                  Navigator.push(
+                                    context,
+                                    new MaterialPageRoute(
+                                      builder: ((BuildContext context) => new LoginPage())
+                                    )
+                                  );
+                                },
                                 style: TextButton.styleFrom(
                                     primary: Colors.black,
                                     padding: const EdgeInsets.symmetric(
@@ -264,13 +336,15 @@ class _CadastroPageState extends State<CadastroPage> {
                             width: double.infinity,
                             child: TextButton(
                               onPressed: () {
-                                cadastroApi();
+                                cadastroUsuarioApi();
 
                                 Navigator.of(context).pop();
                                 Navigator.push(
                                   context,
                                   new MaterialPageRoute(
-                                    builder: ((BuildContext context) => new LoginPage())));
+                                    builder: ((BuildContext context) => new LoginPage())
+                                  )
+                                );
                               },
                               style: TextButton.styleFrom(
                                   primary: Colors.black,
